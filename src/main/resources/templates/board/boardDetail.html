@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="UTF-8">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/css/boardCss/boardReg.css" type="text/css">
+  <style>
+    img {
+      width: 900px;
+      height: 450px;
+    }
+  </style>
+</head>
+<body>
+<div class="topBox">
+  <div class="postName">
+    <h2 class="suggestions">건의사항</h2>
+  </div>
+</div>
+
+  <div class="postTitle">
+      <div class="content">
+        <section>
+          <form name="actionform" action="/updateForm" method="post">
+          <table class="tb tb_row">
+            <colgroup>
+              <col style="width:10%;" /><col style="width:23%;" /><col style="width:10%;" /><col style="width:23%;" />
+            </colgroup>
+            <tbody>
+            <tr>
+              <th scope="row">등록일</th>
+              <td th:text="${ vo.SUB_REG_YMD }"></td>
+            </tr>
+            <tr>
+              <th scope="row">제목</th>
+              <td>[[ ${vo.SUB_NM} ]]</td>
+            </tr>
+            <tr>
+              <th scope="row">작성자</th>
+              <td colspan="3">[[ ${vo.STUD_NO} ]]</td>
+            </tr>
+            <tr>
+              <th scope="row">내용</th>
+              <td colspan="3">[[ ${vo.SUB_CN} ]]</td>
+            </tr>
+            <tr th:each="imgs : ${imgs}">
+              <th scope="row">이미지</th>
+              <td>
+                <img class="" th:src="@{display?(filename=${imgs.SU_FILE_NAME},filepath=${imgs.SU_FILE_PATH},fileuuid=${imgs.SU_FILE_UUID} ) }" alt="image">
+              </td>
+            </tr>
+            <tr>
+              <th scope="row"></th><td><button type="submit">게시글 수정하기</button></td>
+            </tr>
+            </tbody>
+          </table>
+<!--          <p class="btn_set">-->
+<!--            <a th:href="@{/post/write.do( id=${post.id} )}" class="btns btn_bdr4 btn_mid">수정</a>-->
+<!--            <button type="button" class="btns btn_bdr1 btn_mid">삭제</button>-->
+<!--            <a th:href="@{/post/list.do}" class="btns btn_bdr3 btn_mid">뒤로</a>-->
+<!--          </p>-->
+          </form>
+        </section>
+      </div> <!--/* .content */-->
+  </div>
+
+<script>
+  var updateBtn = document.getElementById("updateBtn");
+  updateBtn.addEventListener('click', function(event) { // event 파라미터 추가
+
+    event.preventDefault(); // 기본 이벤트 막음
+    var actionForm = document.getElementById("actionForm"); // actionForm 요소를 가져옴
+    if (actionForm) { // actionForm이 존재하는지 확인
+      actionForm.action = "updateForm";
+      actionForm.submit();
+    } else {
+      console.error("actionForm이 존재하지 않습니다."); // 콘솔에 오류 메시지 출력
+    }
+  });
+
+</script>
+</body>
+</html>

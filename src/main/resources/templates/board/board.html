@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/boardCss/board.css">
+
+    <style>
+        *{list-style: none}
+
+    </style>
+</head>
+<body>
+
+    <div class="topBox">
+        <div class="postName">
+            <h2 class="suggestions">건의사항</h2>
+        </div>
+
+    </div>
+
+    <div class="midBox">
+        <div class="container">
+            <table class="board_list">
+                <colgroup>
+                    <col width="15%"/>
+                    <col width="*"/>
+                    <col width="15%"/>
+                    <col width="25%"/>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th scope="col">글번호</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">작성자</th>
+                    <th scope="col">진행상황</th>
+                    <th scope="col">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="board : ${list}">
+                        <td th:text="${board.SUB_SN}"></td>
+                        <!--<td th:onclick="@{'/boardDetail?sub_sn=' + ${board.SUB_SN}}" th:text="${board.SUB_NM}"></td> -->
+                        <td><a th:href="@{'/board/boardDetail?sub_sn=' + ${board.SUB_SN}}" th:text="${board.SUB_NM}"></a></td>
+                        <td th:text="${board.STUD_NO}"></td>
+                        <td th:text="${board.SUB_CLSF} ? '진행중' : '종료'"></td>
+                        <td th:text="${board.SUB_REG_YMD}"></td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <div class="searchBox">
+                <input type="text" class="textBox">
+                <button class="searchBtn"><h3>검색</h3></button>
+
+            </div>
+
+            <div class="bottomBox2">
+                <button class="writeBtn"><a href="/board/boardReg">글쓰기</a></button>
+            </div>
+
+
+
+        </div>
+
+            <style>
+                li{padding: 5px 10px; border-radius: 5px; background: #6a769f}
+            </style>
+            <div class="page"  >
+                <ul style="display: flex; justify-content: space-around">
+                    <li><a th:href="@{board(page=1,amount=${pageVO.amount})}">
+                        <i class="fa fa-angle-double-left"></i><p><<</p></a></li>
+                    <!-- 2. 이전버튼 -->
+                    <th:block th:if="${pageVO.prev}">
+                        <li style="margin-right:5px;">
+                            <a th:href="@{board(page=${pageVO.start - 1},
+																amount=${pageVO.amount},)}">
+                                <i class="fa fa-angle-left" aria-hidden="true"> < </i></a>
+                        </li>
+                    </th:block>
+                    <!-- 1. 페이지 반복-->
+                    <th:block th:each="page, status :${pageVO.pageList}">
+                        <li th:class="${page == pageVO.page ? 'on' : ''}">
+                            <a th:href="@{board(page=${page},
+                                        amount=${pageVO.amount},)}">[[${page}]]</a>
+                        </li>
+                    </th:block>
+
+                    <!--3. 다음버튼-->
+                    <th:block th:if="${pageVO.next}">
+                        <li style="margin-left:5px;">
+                            <a th:href="@{board(page=${pageVO.end + 1},
+                                amount=${pageVO.amount},)}"><i
+                                    class="fa fa-angle-right" aria-hidden="true">
+
+                            </i> > </a></li>
+                    </th:block>
+
+                    <li><a th:href="@{board(page=${pageVO.realEnd},
+                                        amount=${pageVO.amount},)}"><i
+                            class="fa fa-angle-double-right" aria-hidden="true">>></i></a></li>
+                </ul>
+            </div>
+
+
+
+
+    </div>
+
+
+
+
+<!--    <div class="bottomBox">-->
+<!--        <div>-->
+<!--            <p class="num">번호</p>-->
+<!--            <p class="title">제목</p>-->
+<!--            <p class="user">글쓴이</p>-->
+<!--            <p class="date">작성일</p>-->
+<!--        </div>-->
+<!--        </div>-->
+
+
+
+
+<!--<table border="1">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>번호</th>-->
+<!--        <th>작성자</th>-->
+<!--        <th>제목</th>-->
+<!--        <th>내용</th>-->
+<!--        <th>날짜</th>-->
+<!--        <th>진행상태</th>-->
+<!--        <th>첨부파일</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr th:each="board : ${list}"> &lt;!&ndash; &ndash;&gt;-->
+<!--        <td th:text="${board.SUB_SN}"></td>-->
+<!--        <td th:text="${board.STUD_NO}"></td>-->
+<!--        <td th:text="${board.SUB_NM}"></td>-->
+<!--        <td th:text="${board.SUB_CN}"></td>-->
+<!--        <td th:text="${board.SUB_REG_YMD}"></td>-->
+<!--        <td th:text="${board.SUB_CLSF} ? '진행중' : '종료'"></td>-->
+<!--        <td th:text="${board.SUB_ATCH_FILE_NM}"></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+
+
+</body>
+</html>

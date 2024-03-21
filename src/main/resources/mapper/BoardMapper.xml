@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.domitory.Board.service.BoardMapper">
+<insert id="regist" >
+    INSERT INTO SU_BOARD (
+        STUD_NO,
+        SUB_NM,
+        SUB_CN,
+        SUB_ATCH_FILE_NM
+    ) VALUES (
+                 #{STUD_NO},
+                 #{SUB_NM},
+                 #{SUB_CN},
+                 #{SUB_ATCH_FILE_NM}
+             )
+</insert>
+
+<!--    CREATE TABLE SU_FILE (-->
+<!--    SU_FILE_NUM int primary key auto_increment,-->
+<!--    SU_FILE_NAME varchar(100),-->
+<!--    SU_FILE_PATH varchar(100),-->
+<!--    SU_FILE_UUID varchar(100),-->
+<!--    STU_NO varchar(50),-->
+<!--    SU_SN int #게시글NO PK-->
+<!--    );-->
+
+    <select id="getList" resultType="BoardVO">
+        select * from SU_BOARD limit #{cri.pageStart},#{cri.amount}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(*)
+        from SU_BOARD
+    </select>
+
+    <insert id="registFile">
+        <selectKey resultType="int" keyProperty="SUB_SN" order="BEFORE">
+            select max(STUD_NO) from SU_BOARD where SUB_SN = #{SUB_SN}
+        </selectKey>
+
+        insert into SU_FILE(
+        SU_FILE_NAME,
+        SU_FILE_PATH,
+        SU_FILE_UUID,
+        STUD_NO,
+        SUB_SN
+        )
+        values(
+        #{SU_FILE_NAME},
+        #{SU_FILE_PATH},
+        #{SU_FILE_UUID},
+        #{STUD_NO},
+        (SELECT SUB_SN FROM SU_BOARD ORDER BY SUB_SN desc LIMIT 1))
+    </insert>
+
+
+    <select id="getDetail" resultType="BoardVO">
+        SELECT * FROM SU_BOARD
+        WHERE SUB_SN = #{SUB_SN}
+    </select>
+
+    <select id="getImgs" resultType="BoardUploadVO">
+        select * from SU_FILE where SUB_SN = #{SUB_SN}
+    </select>
+
+    <update id="update">
+        update PRODUCT set
+            STUD_NO = #{STUD_NO}
+                         ,SUB_NM = #{SUB_NM}
+                         ,SUB_CN = #{SUB_CN}
+                         ,SUB_ATCH_FILE_NM = #{SUB_ATCH_FILE_NAME}
+        where SUB_SN = #{SUB_SN}
+    </update>
+
+
+<!--    <delete id="delete">-->
+<!--        delete from PRODUCT-->
+<!--        where prod_id = #{prod_id}-->
+<!--    </delete>-->
+
+
+<!--    &lt;!&ndash; 카테고리 첫번째 데이터를 조회  &ndash;&gt;-->
+<!--    <select id="getCategory" resultType="CategoryVO">-->
+<!--        select * from PRODUCT_CATEGORY-->
+<!--        where category_lv = 1-->
+<!--    </select>-->
+
+<!--    <select id="getCategoryChild" resultType="CategoryVO">-->
+<!--        select * from PRODUCT_CATEGORY-->
+<!--        where group_id = #{group_id}-->
+<!--          and category_parent_lv = #{category_lv}-->
+<!--          and category_detail_parent_lv = #{category_detail_lv}-->
+
+<!--    </select>-->
+
+    <!-- 파일업로드 -->
+    <!--
+    1. insert전에 product테이블의 키값이 FK로 사용되기 때문에 반드시 필요합니다.
+    selectKey를 사용하면 됩니다.
+     2. update or delete에도 전부 사용할 수 있습니다.
+     3. 조회된 결과가 1행이어야 합니다.
+
+     resultType=조회한 결과를 반환받을 타입
+     keyProperty=조회한 값을 저장할 속성명
+     order는 BEFORE, AFTER가 사용가능한데, SQL문 전, 후 적용순서
+     -->
+
+</mapper>

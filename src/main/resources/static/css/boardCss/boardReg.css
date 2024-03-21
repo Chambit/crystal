@@ -1,0 +1,65 @@
+*{margin: 0 auto;}
+.postName {
+    border: 1px solid #777;
+    border-radius: 7px;
+    width: 900px;
+    height: 75px;
+    margin-top: 50px;
+    background-color: #6a769f;
+}
+
+.suggestions {
+    margin-top: 23px;
+    margin-left: 35px;
+}
+.postTitle {
+    border-radius: 7px;
+    width: 1800px;
+    height: 110%;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgb(0, 0, 0,0.6);
+    padding-top: 10px;
+}
+.title {
+    border-radius: 5px;
+    border-width: 0;
+    width: 300px;
+    height: 25px;
+    width: 880px;
+    height: 28px;
+    border: 1px solid #777;
+    margin-left: 8px;
+}
+.titleP {
+    margin-left: 8px;
+}
+.titleBox {
+    margin-top: 15px;
+}
+.suggestions {
+    margin-left: 8px;
+}
+.detail {
+    margin-left: 8px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    width: 880px;
+    height: 370px;
+}
+.tb {width:900px; border:1px solid #dedede; margin-top:20px;}
+.tb:first-child {margin-top:0;}
+.tb th, .tb td {border:1px solid #dedede; padding:10px 5px; box-sizing:border-box;}
+.tb th {color:#555;}
+
+.tb_col th {border-bottom:1px solid #a2a2a2;}
+.tb_col td {text-align:center;}
+.tb_col thead th {background:#6f8294; border-color:rgba(255,255,255,0.2); color:#fff;}
+.tb_col tbody tr:nth-child(even) {background:#f6f7f8;}
+.tb_col .no_data_msg {padding:50px 0;}
+
+.tb_row {border-top:2px solid #6f8294;}
+.tb_row th, .tb_row td {padding:8px 12px;}
+.tb_row th {background:#f6f7f8; text-align:left;}
+.tb_row td {height:40px;}
+.tb_row .btns {height:38px; line-height:38px;}
+.viewcon {min-height:100px;}

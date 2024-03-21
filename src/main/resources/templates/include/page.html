@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<th:block th:fragment="pageNation( pageVO )">
+
+    <div class="page">
+        <ul>
+            <li th:if="${pageVO.total != 0}">
+                <a th:href="@{board(page=1,
+										  amount=${pageVO.amount},
+										  searchName=${pageVO.cri.searchName},
+										  searchContent=${pageVO.cri.searchContent},
+										  searchPrice=${pageVO.cri.searchPrice},
+										  startDate=${pageVO.cri.startDate},
+										  endDate=${pageVO.cri.endDate}
+										  )}">
+                    <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                </a>
+            </li>
+
+
+            <th:block th:if="${pageVO.prev}">
+                <li style="margin-right:5px;">
+                    <a th:href="@{board(page=${pageVO.start - 1},
+										  amount=${pageVO.amount},
+										  searchName=${pageVO.cri.searchName},
+										  searchContent=${pageVO.cri.searchContent},
+										  searchPrice=${pageVO.cri.searchPrice},
+										  startDate=${pageVO.cri.startDate},
+										  endDate=${pageVO.cri.endDate}
+										  )}">
+                        <i class="fa fa-angle-left" aria-hidden="true"></i>
+                    </a>
+                </li>
+            </th:block>
+
+
+            <th:block th:each="page : ${pageVO.pageList}">
+                <li th:class="${pageVO.page == page ? 'on' : '' }">
+                    <a th:href="@{board(page=${page},
+										  amount=${pageVO.amount},
+										  searchName=${pageVO.cri.searchName},
+										  searchContent=${pageVO.cri.searchContent},
+										  searchPrice=${pageVO.cri.searchPrice},
+										  startDate=${pageVO.cri.startDate},
+										  endDate=${pageVO.cri.endDate}
+										  )}">[[${page}]]</a>
+                </li>
+            </th:block>
+
+            <th:block th:if="${pageVO.next}">
+                <li style="margin-left:5px;">
+                    <a th:href="@{board(page=${pageVO.end + 1},
+										  amount=${pageVO.amount},
+										  searchName=${pageVO.cri.searchName},
+										  searchContent=${pageVO.cri.searchContent},
+										  searchPrice=${pageVO.cri.searchPrice},
+										  startDate=${pageVO.cri.startDate},
+										  endDate=${pageVO.cri.endDate}
+										  )}">
+                        <i class="fa fa-angle-right"aria-hidden="true"></i>
+                    </a>
+                </li>
+            </th:block>
+
+
+            <li th:if="${pageVO.total != 0}">
+                <a th:href="@{board(page=${pageVO.realEnd},
+										  amount=${pageVO.amount},
+										  searchName=${pageVO.cri.searchName},
+										  searchContent=${pageVO.cri.searchContent},
+										  searchPrice=${pageVO.cri.searchPrice},
+										  startDate=${pageVO.cri.startDate},
+										  endDate=${pageVO.cri.endDate}
+										  )}">
+                    <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+                </a>
+            </li>
+
+        </ul>
+    </div>
+
+</th:block>
+
+</html>
